@@ -24,7 +24,7 @@ metadata = MetaData(naming_convention={
 
 db = SQLAlchemy(metadata=metadata)
 
-from models import User, Post, Category
+from models import User
 
 migrate = Migrate(app, db)
 db.init_app(app)
