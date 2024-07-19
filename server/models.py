@@ -1,5 +1,6 @@
 from config import db
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.sql import func
 
 class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
