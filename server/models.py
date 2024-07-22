@@ -48,3 +48,11 @@ class Category(db.Model, SerializerMixin):
       id: {self.id}
       title: {self.title}
     """
+  
+  post_category = Table(
+    'post_categories',
+    db.Model.metadata,
+    db.Column('post_id', db.ForeignKey('posts.id'), primary_key=True),
+    db.Column('category_id', db.ForeignKey('categories.id'), primary_key=True),
+    extend_existing=True,
+)
