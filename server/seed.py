@@ -4,19 +4,17 @@ from faker import Faker
 import random
 
 from app import app
-from models import db, User, Post, Category,post_category
-
-# fake = Faker()
-# print(fake.domain_name())
+from models import db, User, Post, Category, post_category
 
 with app.app_context():
     
     fake = Faker()
-
+    
     User.query.delete()
     Post.query.delete()
     Category.query.delete()
-    # post_category.query.delete()
+    db.session.query(post_category).delete()
+    db.session.commit()
 
     users = []
     for i in range(5):
@@ -57,9 +55,3 @@ with app.app_context():
     
     db.session.add_all(posts)
     db.session.commit()
-    print(posts)
-  
-    
-
-
-    
