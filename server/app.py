@@ -24,5 +24,19 @@ def all_users():
   
   return make_response(user_list, 200)
 
+@app.route('/posts')
+def all_posts():
+  posts = Post.query.all()
+  post_list = [p.to_dict() for p in posts]
+  
+  return make_response(post_list, 200)
+
+@app.route('/categories')
+def all_categories():
+  categories = Category.query.all()
+  category_list = [c.to_dict() for c in categories]
+  
+  return make_response(category_list, 200)
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
