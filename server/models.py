@@ -13,7 +13,7 @@ post_category = db.Table(
 class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
   
-  serialize_rules = ('-posts.user',)
+  serialize_rules = ('-posts',)
   
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String, nullable = False, unique = True)
@@ -33,7 +33,7 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
   __tablename__ = 'posts'
   
-  serialize_rules = ('-categories.posts',)
+  serialize_rules = ('-categories.posts','-user.posts')
   
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String, nullable = False, unique = True)
@@ -55,9 +55,10 @@ class Post(db.Model, SerializerMixin):
 class Category(db.Model, SerializerMixin):
   __tablename__ = 'categories'
   
+  serialize_rules = ('-posts.categories',)
+  
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String, nullable = False, unique = True)
-  
   # posts = db.relationship("Post", secondary=post_category, backref=db.backref('categories'))
   
   def __repr__(self):
@@ -65,4 +66,5 @@ class Category(db.Model, SerializerMixin):
       id: {self.id}
       title: {self.title}
     """
+  
   
